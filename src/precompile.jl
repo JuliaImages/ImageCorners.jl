@@ -1,7 +1,5 @@
 using PrecompileTools
 
-@info "Precompiling ImageCorners"
-
 @setup_workload begin
 
     imgs_list = Any[
@@ -43,9 +41,11 @@ using PrecompileTools
             shi_tomasi(img)
             kitchen_rosenfeld(img)
 
-            fastcorners(img)
-            fastcorners(img, 10)
-            fastcorners(img, 10, 1)
+            if (eltype(img) ∉ [RGB{ColorTypes.N0f8}, RGB{ColorTypes.Float64}])
+                fastcorners(img)
+                fastcorners(img, 10)
+                fastcorners(img, 10, 0.01)
+            end
         end
 
         Ac = zeros(41,41)

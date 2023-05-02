@@ -10,6 +10,7 @@ using StatsBase
 
 include("utils.jl")
 include("cornerapi.jl")
+include("precompile.jl")
 
 export
     imcorner,

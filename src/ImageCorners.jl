@@ -4,6 +4,7 @@ using ColorTypes
 using ColorVectorSpace
 using ImageCore: NumberLike
 using ImageFiltering
+using PrecompileTools
 using StaticArrays
 using StatsBase
 

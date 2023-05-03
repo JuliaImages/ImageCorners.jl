@@ -1,3 +1,7 @@
+```@meta
+CurrentModule = ImageCorners
+```
+
 # ImageCorners.jl
 
 ImageCorners.jl provides image corner related algorithms in Julia. 
@@ -24,4 +28,8 @@ julia> corners = imcorner(img, Percentile(95); method = harris);
 
 # for corner detection to subpixel precision imgcorner_subpixel can be used
 julia> corners = imcorner_subpixel(img; method = harris);
+```
+
+```@autodocs
+Modules = [ImageCorners]
 ```

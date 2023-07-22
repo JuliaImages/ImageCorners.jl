@@ -1,7 +1,7 @@
 name = "ImageCorners"
 uuid = "89d5987c-236e-4e32-acd0-25bd6bd87b70"
 authors = "JuliaImages Team"
-version = "0.1.2"
+version = "0.1.3"
 
 [deps]
 ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"

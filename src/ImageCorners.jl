@@ -1,7 +1,6 @@
 module ImageCorners
 
-using ColorTypes
-using ColorVectorSpace
+using ImageCore
 using ImageCore: NumberLike
 using ImageFiltering
 using PrecompileTools

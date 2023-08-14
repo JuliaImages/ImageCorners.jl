@@ -145,3 +145,33 @@ function gammacovs(cov_xx, cov_xy, cov_yy, gamma::Float64 = 1.4)
 
     filt_cov_xx, filt_cov_xy, filt_cov_yy
 end
+
+
+"""
+```
+moravec_response = moravec(img; [threshold], [window_size])
+```
+Performs Moravec corner detection. 
+The Moravec Corner Detector algorithm calculates corner responses based on intensity differences.
+"""
+function moravec(img::AbstractArray; threshold::Float64 = 10000.0, window_size::Int = 3, args...)
+    gradient_x, gradient_y = gradcovs(img, args...)
+
+    corners = []
+    for y in 1:size(img, 1) - window_size + 1
+        for x in 1:size(img, 2) - window_size + 1
+            min_sum_diff = Inf
+            for dy in -1:1
+                for dx in -1:1
+                    sum_diff = sum((gradient_x[y:y+window_size-1, x:x+window_size-1] .- gradient_x[y+dy:y+dy+window_size-1, x+dx:x+dx+window_size-1]).^2)
+                    min_sum_diff = min(min_sum_diff, sum_diff)
+                end
+            end
+            if min_sum_diff > threshold
+                push!(corners, (x + window_size ÷ 2, y + window_size ÷ 2))
+            end
+        end
+    end
+
+    return corners
+end

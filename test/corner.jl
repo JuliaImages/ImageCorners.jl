@@ -389,7 +389,7 @@ using Test, ImageCorners
         gradient_y = randn(100, 100)
     
         # Call the moravec function with the generated gradient images
-        corners = moravec(img, gradient_x=gradient_x, gradient_y=gradient_y)
+        corners = moravec(img, gradient_x=gradient_x, gradient_y=gradient_y, threshold=10000.0, window_size=3)
     
         @test length(corners) == 0  # No corners expected in a random image
     
@@ -398,7 +398,8 @@ using Test, ImageCorners
         gradient_x[10:15, 10:15] .= 0
         gradient_y[10:15, 10:15] .= 0
     
-        corners = moravec(img, gradient_x=gradient_x, gradient_y=gradient_y)
+        corners = moravec(img, gradient_x=gradient_x, gradient_y=gradient_y, threshold=10000.0, window_size=3)
         @test length(corners) > 0  # Corners should be detected in the region
     end
+    
 end

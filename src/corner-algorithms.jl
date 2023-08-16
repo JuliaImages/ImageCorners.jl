@@ -164,7 +164,7 @@ Compute the corner response values for each pixel in the input image using the M
     - http://www0.cs.ucl.ac.uk/staff/g.brostow/classes/IP2008/L7_CornerDetection.pdf
 
 """
-function moravec(img::AbstractArray; threshold::Float64 = 10000.0, window_size::Int = 3, args...)
+function moravec(img::AbstractArray, args...; threshold::Float64 = 10000.0, window_size::Int = 3)
     gradient_x, gradient_y = gradcovs(img, args...)
 
     corners = []

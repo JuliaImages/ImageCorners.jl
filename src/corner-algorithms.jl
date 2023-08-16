@@ -151,8 +151,18 @@ end
 ```
 moravec_response = moravec(img; [threshold], [window_size])
 ```
-Performs Moravec corner detection. 
-The Moravec Corner Detector algorithm calculates corner responses based on intensity differences.
+Compute the corner response values for each pixel in the input image using the Moravec corner detection algorithm.
+
+    # Arguments
+    - `img::AbstractArray`: The input image.
+    - `window_size::Int`: Size of the window for calculating the corner response.
+    
+    # Keyword Arguments
+    - `args...`: Additional arguments passed to the `gradcovs` function.
+    # Resources
+    - https://vincmazet.github.io/bip/detection/corners.html
+    - http://www0.cs.ucl.ac.uk/staff/g.brostow/classes/IP2008/L7_CornerDetection.pdf
+
 """
 function moravec(img::AbstractArray; threshold::Float64 = 10000.0, window_size::Int = 3, args...)
     gradient_x, gradient_y = gradcovs(img, args...)
@@ -167,11 +177,8 @@ function moravec(img::AbstractArray; threshold::Float64 = 10000.0, window_size::
                     min_sum_diff = min(min_sum_diff, sum_diff)
                 end
             end
-            if min_sum_diff > threshold
-                push!(corners, (x + window_size ÷ 2, y + window_size ÷ 2))
-            end
+            img[y,x] = min_sum_diff
         end
     end
 
-    return corners
 end

@@ -18,12 +18,10 @@ export
     harris,
     shi_tomasi,
     kitchen_rosenfeld,
-    moravec,
     fastcorners,
     meancovs,
     gammacovs,
-   
-
+    moravec,
     Percentile,
     HomogeneousPoint
 

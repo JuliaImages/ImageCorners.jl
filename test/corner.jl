@@ -381,25 +381,23 @@ using Test, ImageCorners
     @test all(corners[16:end, :] .== false)
     @test all(corners[6:12, 6:12] .== false)
     end
-    @testset "Moravec Corner Detection" begin
-        img = rand(0:255, 100, 100)  # Create a random 100x100 image
-    
-        # Generate gradient images
-        gradient_x = randn(100, 100)
-        gradient_y = randn(100, 100)
-    
-        # Call the moravec function with the generated gradient images
-        corners = moravec(img, gradient_x=gradient_x, gradient_y=gradient_y, threshold=10000.0, window_size=3)
-    
-        @test length(corners) == 0  # No corners expected in a random image
-    
-        # Create a region with a corner
-        img[10:15, 10:15] .= 255
-        gradient_x[10:15, 10:15] .= 0
-        gradient_y[10:15, 10:15] .= 0
-    
-        corners = moravec(img, gradient_x=gradient_x, gradient_y=gradient_y, threshold=10000.0, window_size=3)
-        @test length(corners) > 0  # Corners should be detected in the region
+
+    # testset for Moravec corner detection
+    function moravec(img::AbstractArray; window_size::Int = 3)
     end
     
-end
+    @testset "Moravec Corner Detection" begin
+        img = zeros(3, 3)
+        img[1:1, 2:3] .= 1
+        img[1:2, 2:2] .= 0
+    
+        corner_responses = moravec(img; window_size = 3)
+    
+        @testset "moravec" begin
+            @test corner_responses[1, 1] ≈ 0
+            @test corner_responses[1, 1] ≈ maximum(corner_responses)
+            @test corner_responses[3, 1] ≈ maximum(corner_responses)
+            @test corner_responses[3, 3] ≈ maximum(corner_responses)
+        end
+    end
+end  

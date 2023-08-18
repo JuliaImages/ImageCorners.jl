@@ -383,9 +383,6 @@ using Test, ImageCorners
     end
 
     # testset for Moravec corner detection
-    function moravec(img::AbstractArray; window_size::Int = 3)
-    end
-    
     @testset "Moravec Corner Detection" begin
         img = zeros(3, 3)
         img[1:1, 2:3] .= 1

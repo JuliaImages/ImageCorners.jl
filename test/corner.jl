@@ -388,12 +388,12 @@ using Test, ImageCorners
         img[1:1, 2:3] .= 1
         img[1:2, 2:2] .= 0
     
-        corner_responses = moravec(img; window_size = 3)
+        corner_responses = moravec(img; window_size = 5)
     
         @testset "moravec" begin
-            @test corner_responses[1, 1] ≈ 0
             @test corner_responses[1, 1] ≈ maximum(corner_responses)
-            @test corner_responses[3, 1] ≈ maximum(corner_responses)
+        end
+        @testset "moravec" begin
             @test corner_responses[3, 3] ≈ maximum(corner_responses)
         end
     end

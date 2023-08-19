@@ -173,9 +173,9 @@ function moravec(img::AbstractArray; window_size::Int = 3, args...)
     for y in 1:size(img, 1) - window_size + 1
         for x in 1:size(img, 2) - window_size + 1
             min_sum_diff = Inf
-            for dy in -1:1
-                for dx in -1:1
-                    sum_diff = sum((gradient_x[y:y+window_size-1, x:x+window_size-1] .- gradient_x[y+dy:y+dy+window_size-1, x+dx:x+dx+window_size-1]).^2)
+            for dy in 0:1
+                for dx in 0:1
+                    sum_diff = sum((gradient_x[y+1:y+window_size-2, x+1:x+window_size-2] .- gradient_x[y+dy:y+dy+window_size-2, x+dx:x+dx+window_size-2]).^2)
                     min_sum_diff = min(min_sum_diff, sum_diff)
                 end
             end

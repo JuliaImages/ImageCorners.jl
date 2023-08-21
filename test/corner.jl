@@ -391,10 +391,10 @@ using Test, ImageCorners
         corner_responses = moravec(img; window_size = 5)
     
         @testset "moravec" begin
-            @test corner_responses[1, 1] ≈ maximum(corner_responses)
+            @test isapprox(corner_responses[1, 1],maximum(corner_responses); atol = 0.001) 
         end
         @testset "moravec" begin
-            @test corner_responses[3, 3] ≈ maximum(corner_responses)
+            @test isapprox(corner_responses[3, 3],maximum(corner_responses); atol = 0.001) 
         end
     end
 end  

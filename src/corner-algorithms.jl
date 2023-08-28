@@ -148,9 +148,7 @@ end
 
 
 """
-```
-moravec_response = moravec(img; [threshold], [window_size])
-```
+moravec_response = moravec(img; [window_size], args...)
 Compute the corner response values for each pixel in the input image using the Moravec corner detection algorithm.
 
     # Arguments

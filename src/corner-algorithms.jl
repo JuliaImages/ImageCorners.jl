@@ -151,15 +151,16 @@ end
 moravec_response = moravec(img; [window_size], args...)
 Compute the corner response values for each pixel in the input image using the Moravec corner detection algorithm.
 
-    # Arguments
-    - `img::AbstractArray`: The input image.
-    - `window_size::Int`: Size of the window for calculating the corner response.
-    
-    # Keyword Arguments
-    - `args...`: Additional arguments passed to the `gradcovs` function.
-    # Resources
-    - https://vincmazet.github.io/bip/detection/corners.html
-    - http://www0.cs.ucl.ac.uk/staff/g.brostow/classes/IP2008/L7_CornerDetection.pdf
+# Arguments
+- `img::AbstractArray`: The input image.
+
+# Keyword Arguments
+- `window_size::Int`: Size of the window for calculating the corner response.
+- `kwargs...`: Additional keyword arguments passed to the `gradcovs` function.
+
+# Resources
+- https://vincmazet.github.io/bip/detection/corners.html
+- http://www0.cs.ucl.ac.uk/staff/g.brostow/classes/IP2008/L7_CornerDetection.pdf
 
 """
 

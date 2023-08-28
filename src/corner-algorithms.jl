@@ -169,12 +169,13 @@ function moravec(img::AbstractArray; window_size::Int = 3, args...)
     
     corner_response = similar(img, Float64)  # Initialize a corner response image
 
-    for y in 0:size(img, 2) - window_size + 1
-        for x in 0:size(img, 2) - window_size + 1
+    for y in 2*window_size+1 : size(img, 1) - 2*window_size + 1
+        for x in 2*window_size+1 : size(img, 2) - 2*window_size + 1
             min_sum_diff = Inf
-            for dy in -1:1
-                for dx in -1:1
-                    sum_diff = sum((gradient_x[y+1:y+window_size-2, x+1:x+window_size-2] .- gradient_x[y+dy:y+dy+window_size-2, x+dx:x+dx+window_size-2]).^2)
+            for dy in -drange:drange
+                for dx in -drange:drange
+                    if(dy == 0 && dx == 0) continue end
+                    sum_diff = sum((img[y - half : y + half, x - half : x + half] .- img[y - half + dy : y + half + dy, x - half + dx : x + half + dx]).^2)
                     min_sum_diff = min(min_sum_diff, sum_diff)
                 end
             end

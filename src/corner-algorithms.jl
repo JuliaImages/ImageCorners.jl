@@ -145,3 +145,43 @@ function gammacovs(cov_xx, cov_xy, cov_yy, gamma::Float64 = 1.4)
 
     filt_cov_xx, filt_cov_xy, filt_cov_yy
 end
+
+
+"""
+moravec_response = moravec(img; [window_size], args...)
+Compute the corner response values for each pixel in the input image using the Moravec corner detection algorithm.
+
+# Arguments
+- `img::AbstractArray`: The input image.
+
+# Keyword Arguments
+- `window_size::Int`: Size of the window for calculating the corner response.
+- `kwargs...`: Additional keyword arguments passed to the `gradcovs` function.
+
+# Resources
+- https://vincmazet.github.io/bip/detection/corners.html
+- http://www0.cs.ucl.ac.uk/staff/g.brostow/classes/IP2008/L7_CornerDetection.pdf
+
+"""
+
+function moravec(img::AbstractArray; window_size::Int = 3, args...)
+    
+    corner_response = similar(img, Float64)  # Initialize a corner response image
+
+    for y in 2*window_size+1 : size(img, 1) - 2*window_size + 1
+        for x in 2*window_size+1 : size(img, 2) - 2*window_size + 1
+            min_sum_diff = Inf
+            if drange < window_size
+                for dy in -drange:drange
+                    for dx in -drange:drange
+                        if(dy == 0 && dx == 0) continue end
+                        sum_diff = sum((img[y - half : y + half, x - half : x + half] .- img[y - half + dy : y + half + dy, x - half + dx : x + half + dx]).^2)
+                        min_sum_diff = min(min_sum_diff, sum_diff)
+                    end
+                end
+            end
+            corner_response[y, x] = min_sum_diff
+        end
+    end
+    return corner_response
+end

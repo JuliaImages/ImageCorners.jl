@@ -382,4 +382,25 @@ using Test, ImageCorners
     @test all(corners[6:12, 6:12] .== false)
     end
 
-end
+    # testset for Moravec corner detection
+    @testset "Moravec Corner Detection" begin
+        img = [
+            1 0 0 0 0;
+            0 1 0 0 0;
+            0 0 0 1 0;
+            0 0 0 0 1;
+            0 0 0 0 0
+        ]
+    
+        expected_corner_responses = [6.89944535932674e-310 0.0 6.89949574064095e-310 0.0 6.89944536845233e-310; 
+                                    0.0 6.89944536844206e-310 0.0 6.89944535937417e-310 0.0;
+                                    6.89944533599736e-310 0.0 6.8994944349527e-310 0.0 6.89949574064095e-310; 
+                                    0.0 6.8994957409761e-310 0.0 6.8994453686144e-310 0.0; 
+                                    6.89944535932753e-310 5.0e-324 6.89944535939314e-310 0.0 0.0]
+        corner_responses = moravec(img)
+        tolerance = 1e-305
+        for (expected, actual) in zip(expected_corner_responses, corner_responses)
+            @test isapprox(expected, actual, atol=tolerance)
+        end
+    end
+end  

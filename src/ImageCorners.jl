@@ -21,7 +21,7 @@ export
     fastcorners,
     meancovs,
     gammacovs,
-
+    moravec,
     Percentile,
     HomogeneousPoint
 
